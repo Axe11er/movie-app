@@ -31,6 +31,7 @@ export default class App extends Component {
 
   componentWillUnmount() {
     clearTimeout(this.timeoutId);
+    clearTimeout(this.timeoutId2);
   }
 
   onError = (err) => {
@@ -38,11 +39,11 @@ export default class App extends Component {
     error.status = true;
     error.message = err.message;
     this.setState({ error, loading: false });
-    setTimeout(() => {
+    this.timeoutId2 = setTimeout(() => {
       error.status = false;
       error.message = '';
       this.setState({ error });
-    }, 5000);
+    }, 7000);
   };
 
   onSearchChange = (value) => {
