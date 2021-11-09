@@ -1,0 +1,12 @@
+@import '~antd/dist/antd.css';
+
+* {
+   box-sizing: border-box;
+   font-size: 14px;
+}
+
+.container {
+   min-height: 100vh;
+   display: flex;
+   flex-flow: column;
+}

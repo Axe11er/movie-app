@@ -1,0 +1,34 @@
+.container {
+   display: flex;
+   align-items: center;
+   flex-flow: column;
+   /* height: 90vh; */
+}
+
+.tabLabels {
+   display: flex;
+   justify-content: space-between;
+   width: 90px;
+   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+   margin: 100px;
+}
+
+.tab {
+   cursor: pointer;
+   user-select: none;
+}
+
+.activeTab {
+   position: relative;
+}
+
+.activeTab::after {
+   content: '';
+   display: block;
+   width: 100%;
+   position: absolute;
+   top: 20px;
+   left: 0px;
+   border-bottom: 2px solid #1890ff;
+   opacity: 1;
+}

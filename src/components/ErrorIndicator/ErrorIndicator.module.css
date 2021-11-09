@@ -1,0 +1,7 @@
+.error {
+   display: inline;
+   margin: auto;
+   position: fixed;
+   align-self: center;
+   top: 50%;
+}

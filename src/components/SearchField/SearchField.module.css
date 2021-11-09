@@ -1,0 +1,10 @@
+.search {
+   width: 454px;
+   align-self: center;
+}
+
+@media (max-width: 500px) {
+   .search {
+      width: 100%;
+   }
+}

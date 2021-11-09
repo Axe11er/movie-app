@@ -1,0 +1,7 @@
+.spinner {
+   transform: scale(1.5);
+   margin: auto;
+   position: fixed;
+   align-self: center;
+   top: 50%;
+}
