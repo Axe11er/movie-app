@@ -31,19 +31,14 @@ export default class App extends Component {
 
   componentWillUnmount() {
     clearTimeout(this.timeoutId);
-    clearTimeout(this.timeoutId2);
   }
 
   onError = (err) => {
-    const error = { ...this.state.error };
-    error.status = true;
-    error.message = err.message;
-    this.setState({ error, loading: false });
-    this.timeoutId2 = setTimeout(() => {
-      error.status = false;
-      error.message = '';
-      this.setState({ error });
-    }, 7000);
+    this.setState({ error: { ...this.state.error, status: true, message: err.message }, loading: false });
+  };
+
+  onErrorClick = () => {
+    this.setState({ error: { ...this.state.error, status: false, message: '' } });
   };
 
   onSearchChange = (value) => {
@@ -131,7 +126,7 @@ export default class App extends Component {
   render() {
     const { movies, ratedMovies, loading, error, keyword, page, totalResults, activeTab } = this.state;
 
-    const errorMessage = error.status ? <ErrorIndicator message={error.message} /> : null;
+    const errorMessage = error.status ? <ErrorIndicator message={error.message} onClick={this.onErrorClick} /> : null;
     const spinner = loading ? <Spinner /> : null;
     const cards = (
       <Tabs

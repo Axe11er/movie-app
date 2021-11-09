@@ -1,7 +1,8 @@
 .error {
-   display: inline;
-   margin: auto;
-   position: fixed;
-   align-self: center;
-   top: 50%;
+  display: inline;
+  margin: auto;
+  position: fixed;
+  align-self: center;
+  top: 50%;
+  cursor: pointer;
 }
