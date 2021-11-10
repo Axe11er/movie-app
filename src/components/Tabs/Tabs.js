@@ -35,7 +35,11 @@ export default function Tabs({
       />
     </ErrorBoundary>
   ) : null;
-  const ratedTab = activeTab.rated ? <Rated movies={ratedMovies} onRatingChange={rateMovie} /> : null;
+  const ratedTab = activeTab.rated ? (
+    <ErrorBoundary>
+      <Rated movies={ratedMovies} onRatingChange={rateMovie} />
+    </ErrorBoundary>
+  ) : null;
 
   return (
     <div className={s.container}>
