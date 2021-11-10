@@ -42,14 +42,18 @@ export default class App extends Component {
   };
 
   onSearchChange = (value) => {
-    this.setState({ keyword: value });
+   //  this.setState({ keyword: value });
     if (value.trim()) {
       this.getMovies(this.state.keyword);
       this.setState({ page: 1, lastSearch: this.state.keyword });
     }
   };
 
-  onSearchChange = _.debounce(this.onSearchChange, 700);
+  onSearchChange = _.debounce(this.onSearchChange, 1000);
+
+  setKeyword = (value) => {
+    this.setState({ keyword: value });
+  };
 
   getMovies(keyword, page) {
     this.setState({
@@ -138,6 +142,7 @@ export default class App extends Component {
         totalResults={totalResults}
         page={page}
         onSearchChange={this.onSearchChange}
+        setKeyword={this.setKeyword}
         onTabLabelClick={this.onTabLabelClick}
         onPageChange={this.onPageChange}
         getRatedMovies={this.getRatedMovies}

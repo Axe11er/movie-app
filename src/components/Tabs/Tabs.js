@@ -14,6 +14,7 @@ export default function Tabs({
   totalResults,
   page,
   onSearchChange,
+  setKeyword,
   onTabLabelClick,
   onPageChange,
   getRatedMovies,
@@ -28,6 +29,7 @@ export default function Tabs({
         totalResults={totalResults}
         page={page}
         onSearchChange={onSearchChange}
+        setKeyword={setKeyword}
         onPageChange={onPageChange}
         rateMovie={rateMovie}
       />
@@ -67,6 +69,7 @@ Tabs.defaultProps = {
   onTabLabelClick: () => {},
   getRatedMovies: () => {},
   onSearchChange: () => {},
+  setKeyword: () => {},
   onPageChange: () => {},
   rateMovie: () => {},
 };
@@ -82,6 +85,7 @@ Tabs.propTypes = {
   onTabLabelClick: PropTypes.func,
   getRatedMovies: PropTypes.func,
   onSearchChange: PropTypes.func,
+  setKeyword: PropTypes.func,
   onPageChange: PropTypes.func,
   rateMovie: PropTypes.func,
 };

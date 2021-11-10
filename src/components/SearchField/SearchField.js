@@ -3,15 +3,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import s from './SearchField.module.css';
 
-export default function SearchField({ onChange }) {
+export default function SearchField({ keyword, onChange, setKeyword }) {
   return (
     <div className={s.search}>
       <Input
         placeholder="input search text"
         allowClear
         size="large"
-        onChange={onChange}
-        // value={keyword}
+        onChange={(e) => {
+          setKeyword(e.target.value);
+          onChange(e.target.value);
+        }}
+        value={keyword}
       />
     </div>
   );
@@ -19,10 +22,12 @@ export default function SearchField({ onChange }) {
 
 SearchField.defaultProps = {
   onChange: () => {},
-  //   keyword: '',
+  setKeyword: () => {},
+  keyword: '',
 };
 
 SearchField.propTypes = {
   onChange: PropTypes.func,
-  //   keyword: PropTypes.string,
+  setKeyword: PropTypes.func,
+  keyword: PropTypes.string,
 };

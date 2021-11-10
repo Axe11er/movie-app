@@ -13,6 +13,7 @@ export default function Search({
   loading,
   totalResults,
   onSearchChange,
+  setKeyword,
   onPageChange,
   rateMovie,
 }) {
@@ -35,9 +36,11 @@ export default function Search({
     <div className={s.container}>
       <SearchField
         keyword={keyword}
-        onChange={(e) => {
-          onSearchChange(e.target.value);
-        }}
+        //   onChange={(e) => {
+        //     onSearchChange(e.target.value);
+        //   }}
+        onChange={onSearchChange}
+        setKeyword={setKeyword}
       />
       <div className={s.cards}>{cards}</div>
       {paginator}
@@ -52,6 +55,7 @@ Search.defaultProps = {
   loading: false,
   totalResults: 0,
   onSearchChange: () => {},
+  setKeyword: () => {},
   onPageChange: () => {},
   rateMovie: () => {},
 };
@@ -63,6 +67,7 @@ Search.propTypes = {
   loading: PropTypes.bool,
   totalResults: PropTypes.number,
   onSearchChange: PropTypes.func,
+  setKeyword: PropTypes.func,
   onPageChange: PropTypes.func,
   rateMovie: PropTypes.func,
 };
