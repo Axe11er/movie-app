@@ -1,18 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Card from '../Card';
+import ErrorBoundary from '../ErrorBoundary';
 import s from './Rated.module.css';
 
 export default function Rated({ movies, onRatingChange }) {
   const cards = movies.map(({ id, rating, ...rest }) => (
-    <Card
-      key={id}
-      rating={rating}
-      {...rest}
-      onChange={(value) => {
-        onRatingChange(value, id);
-      }}
-    />
+    <ErrorBoundary key={id}>
+      <Card
+        key={id}
+        rating={rating}
+        {...rest}
+        onChange={(value) => {
+          onRatingChange(value, id);
+        }}
+      />
+    </ErrorBoundary>
   ));
   return (
     <div className={s.container}>

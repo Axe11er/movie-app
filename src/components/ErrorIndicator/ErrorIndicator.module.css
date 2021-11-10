@@ -1,5 +1,5 @@
-.error {
-  display: inline;
+.error {  
+  max-width: 90%;
   margin: auto;
   position: fixed;
   align-self: center;
