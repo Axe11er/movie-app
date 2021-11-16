@@ -42,7 +42,6 @@ export default class App extends Component {
   };
 
   onSearchChange = (value) => {
-   //  this.setState({ keyword: value });
     if (value.trim()) {
       this.getMovies(this.state.keyword);
       this.setState({ page: 1, lastSearch: this.state.keyword });
@@ -58,7 +57,7 @@ export default class App extends Component {
   getMovies(keyword, page) {
     this.setState({
       loading: true,
-      error: { status: false },
+      error: { ...this.state.error, status: false },
     });
     this.mdbApi
       .getMoviesByKeyword(keyword, page)
@@ -101,7 +100,7 @@ export default class App extends Component {
   rateMovie = (value, movieId) => {
     this.setState({
       loading: true,
-      error: { status: false },
+      error: { ...this.state.error, status: false },
     });
     this.mdbApi
       .rateMovie(value, movieId, localStorage.getItem('guest_session_id'))
@@ -114,7 +113,7 @@ export default class App extends Component {
   getRatedMovies = () => {
     this.setState({
       loading: true,
-      error: { status: false },
+      error: { ...this.state.error, status: false },
     });
     this.mdbApi
       .getRatedMovies(localStorage.getItem('guest_session_id'))
