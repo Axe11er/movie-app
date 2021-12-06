@@ -1,6 +1,7 @@
 import { Button } from 'antd';
 import _ from 'lodash';
 import React, { Component } from 'react';
+import AppContext from '../../context/AppContext';
 import MovieApiService from '../../services/MovieApiService';
 import ErrorBoundary from '../ErrorBoundary';
 import s from './App.module.css';
@@ -14,6 +15,7 @@ export default class App extends Component {
   state = {
     movies: [],
     ratedMovies: [],
+    genres: [],
     keyword: '',
     page: 1,
     totalResults: 0,
@@ -22,6 +24,10 @@ export default class App extends Component {
     loading: false,
     error: { status: false, message: null },
   };
+
+  componentDidMount() {
+    this.getGenres();
+  }
 
   componentDidUpdate(_prevProps, prevState) {
     if (this.state.page !== prevState.page) {
@@ -49,6 +55,13 @@ export default class App extends Component {
   };
 
   onSearchChange = _.debounce(this.onSearchChange, 1000);
+
+  getGenres = () => {
+    this.mdbApi
+      .getGenres()
+      .then((data) => this.setState({ genres: data }))
+      .catch(this.onError);
+  };
 
   setKeyword = (value) => {
     this.setState({ keyword: value });
@@ -79,10 +92,10 @@ export default class App extends Component {
   onTabLabelClick = (e) => {
     switch (e.target.textContent) {
       case 'Search':
-        this.setState({ activeTab: { search: true, rated: false } });
+        this.setState({ activeTab: { ...this.state.activeTab, search: true, rated: false } });
         break;
       case 'Rated':
-        this.setState({ activeTab: { search: false, rated: true } });
+        this.setState({ activeTab: { ...this.state.activeTab, search: false, rated: true } });
         break;
       default:
         break;
@@ -105,7 +118,7 @@ export default class App extends Component {
     this.mdbApi
       .rateMovie(value, movieId, localStorage.getItem('guest_session_id'))
       .then(() => {
-        this.timeoutId = setTimeout(this.getRatedMovies, 1000);
+        this.timeoutId = setTimeout(this.getRatedMovies, 1500);
       })
       .catch(this.onError);
   };
@@ -127,8 +140,7 @@ export default class App extends Component {
   };
 
   render() {
-    const { movies, ratedMovies, loading, error, keyword, page, totalResults, activeTab } = this.state;
-
+    const { movies, ratedMovies, genres, loading, error, keyword, page, totalResults, activeTab } = this.state;
     const errorMessage = error.status ? <ErrorIndicator message={error.message} onClick={this.onErrorClick} /> : null;
     const spinner = loading ? <Spinner /> : null;
     const cards = (
@@ -151,14 +163,16 @@ export default class App extends Component {
 
     return (
       <ErrorBoundary>
-        <div className={s.container}>
-          <Button value="create guest session" onClick={this.createGuestSession}>
-            create guest session
-          </Button>
-          {cards}
-          {errorMessage}
-          {spinner}
-        </div>
+        <AppContext.Provider value={genres}>
+          <div className={s.container}>
+            <Button value="create guest session" onClick={this.createGuestSession}>
+              create guest session
+            </Button>
+            {cards}
+            {errorMessage}
+            {spinner}
+          </div>
+        </AppContext.Provider>
       </ErrorBoundary>
     );
   }

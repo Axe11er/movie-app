@@ -23,8 +23,9 @@ export default class MovieApiService {
 
   createGuestSession = async () => {
     const res = await fetch(`${this._apiBase}authentication/guest_session/new?${this._apiKey}`);
-    if (!res.ok)
-      {throw new Error(`Could not fetch ${this._apiBase}authentication/guest_session/new received ${res.status}`);}
+    if (!res.ok) {
+      throw new Error(`Could not fetch ${this._apiBase}authentication/guest_session/new received ${res.status}`);
+    }
     const body = await res.json();
 
     return body.guest_session_id;
@@ -51,22 +52,20 @@ export default class MovieApiService {
     return this._transformData(data);
   };
 
-  _transformData = async (data) => {
-    const genres = await this.getGenres();
-    return {
+  _transformData = async (data) =>
+    //  const genres = await this.getGenres();
+    ({
       movies: data.results.map((item) => ({
-          id: item.id,
-          overview: item.overview,
-          poster: item.poster_path ? `https://image.tmdb.org/t/p/original/${item.poster_path}` : placeholder,
-          releaseDate: item.release_date,
-          title: item.title,
-          rating: item.rating,
-          voteAverage: item.vote_average,
-          genres: genres.filter((genre) =>
-            item.genre_ids.some((id) => id === genre.id)
-          ),
-        })),
+        id: item.id,
+        overview: item.overview,
+        poster: item.poster_path ? `https://image.tmdb.org/t/p/original/${item.poster_path}` : placeholder,
+        releaseDate: item.release_date,
+        title: item.title,
+        rating: item.rating,
+        voteAverage: item.vote_average,
+        genreIds: item.genre_ids,
+        //   genres: genres.filter((genre) => item.genre_ids.some((id) => id === genre.id)),
+      })),
       totalResults: data.total_results,
-    };
-  };
+    });
 }

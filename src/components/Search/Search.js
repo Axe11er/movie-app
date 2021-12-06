@@ -34,14 +34,7 @@ export default function Search({
 
   return (
     <div className={s.container}>
-      <SearchField
-        keyword={keyword}
-        //   onChange={(e) => {
-        //     onSearchChange(e.target.value);
-        //   }}
-        onChange={onSearchChange}
-        setKeyword={setKeyword}
-      />
+      <SearchField keyword={keyword} onChange={onSearchChange} setKeyword={setKeyword} />
       <div className={s.cards}>{cards}</div>
       {paginator}
     </div>
